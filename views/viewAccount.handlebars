@@ -1,0 +1,150 @@
+<!-- View/edit destinations and find travel buddies -->
+<!-- Page Title -->
+<div id="profileHeader" class="card">
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Your Rush Getaways</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <a href="/view/countries">
+                        Add Countries
+                    </a>
+                </li>
+                <li>
+                    <a href="/view/states">
+                        Add States
+                    </a>
+                </li>
+                <li>
+                    <a href="/view/cities">
+                        Add Cities
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/logout">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>Log Out
+                    </a>
+                </li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="/view/countries">Add Countries</a></li>
+                <li><a href="/view/states">Add States</a></li>
+                <li><a href="/view/cities">Add Cities</a></li>
+                <li><a href="/user/logout">Log Out</a>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+{{!-- display detail of profile --}}
+<div id="detail" class="card teal darken-1 profileDetails center-align">
+    <div class="card-content">
+        {{#each bucketlist}}
+        <p style="color: white; font-size: 20px;"><b>Name:</b> {{firstName}} {{lastName}}</p>
+        <p style="color: white; font-size: 18px;"><b>Email:</b> {{email}}</p>
+        {{/each}}
+    </div>
+</div>
+</div>
+<!-- Page Content Container -->
+<div id="bottomContainer">
+    <!-- Countries Container -->
+    <div class="card white" id="countryContainer">
+        <div class='center-align' style="font-size: 30px;">Countries you selected</div>
+        <!-- Dynamically Render Country Tiles -->
+        <main id="tilesContent">
+            {{#each bucketlist}} 
+            {{#each Countries}}
+            <div class="tile card transparent">
+                <div class="card-content black-text">
+                    <div>{{this.countryName}}</div>
+                    <!-- Image API LINK HERE -->
+                    <div class="imgDiv" style="background-image: url('{{this.countryImageURL}}')"></div>
+                    <div class="plusMinusIcon" data-userid="{{this.CountryLikes.UserId}}" data-locationtype="country" data-locationid="{{this.id}}"><a class="btn btn-floating waves-effect waves-light"><i class="material-icons">remove</i></a>
+                    </div>
+                </div>
+                <!-- Modal Trigger -->
+                <div class="card-action teal lighten-4">
+                    <a id="button" class="waves-effect waves-light btn buddyButton" href="#modal1" data-locationtype="country" data-userid="{{this.CountryLikes.UserId}}" data-locationname="{{this.countryName}}" data-locationid="{{this.id}}">Find Travel Buddy</a>
+                </div>
+            </div>
+            {{/each}}
+            {{/each}}
+        </main>
+    </div>
+    <!-- States Container -->
+    <div class="card white" id="stateContainer">
+        <div class='center-align' style="font-size: 30px;">States you selected</div>
+        <!-- Dynamically Render State Tiles -->
+        <main id="tilesContent">
+            {{#each bucketlist}} 
+            {{#each States}}
+            <div class="tile card transparent">
+                <div class="card-content black-text">
+                    <div>{{this.stateName}}</div>
+                    <!-- Image API LINK HERE -->
+                    <div class="imgDiv" style="background-image: url('{{this.stateImageURL}}')"></div>
+                    <div class="plusMinusIcon" data-userid="{{this.StateLikes.UserId}}" data-locationtype="state" data-locationid="{{this.id}}"><a class="btn btn-floating waves-effect waves-light"><i class="material-icons">remove</i></a>
+                    </div>
+                </div>
+                <!-- Modal Trigger -->
+                <div class="card-action teal lighten-4">
+                    <a id="button1" class="waves-effect waves-light btn buddyButton" href="#modal1" data-locationtype="state" data-userid="{{this.StateLikes.UserId}}" data-locationname="{{this.stateName}}" data-locationid="{{this.id}}">Find Travel Buddy</a>
+                </div>
+            </div>
+            {{/each}} 
+            {{/each}}
+        </main>
+    </div>
+    <!-- Cities Container -->
+    <div class="card white" id="cityContainer">
+        <div class='center-align' style="font-size: 30px;">Cities you selected</div>
+        <!-- Dynamically Render City Tiles -->
+        <main id="tilesContent">
+            {{#each bucketlist}} 
+            {{#each Cities}}
+            <div class="tile card transparent">
+                <div class="card-content black-text">
+                    <div>{{this.cityName}}</div>
+                    <!-- Image API LINK HERE -->
+                    <div class="imgDiv" style="background-image: url('{{this.cityImageURL}}')"></div>
+                    <div class="plusMinusIcon" data-userid="{{this.CityLikes.UserId}}" data-locationtype="city" data-locationid="{{this.id}}"><a class="btn btn-floating waves-effect waves-light"><i class="material-icons">remove</i></a>
+                    </div>
+                </div>
+                <!-- Modal Trigger -->
+                <div class="card-action teal lighten-4">
+                    <a id="button2" class="waves-effect waves-light btn modal-trigger buddyButton" href="#modal1" data-locationtype="city" data-userid="{{this.CityLikes.UserId}}" data-locationname="{{this.cityName}}" data-locationid="{{this.id}}">Find Travel Buddy</a>
+                </div>
+            </div>
+            {{/each}} 
+            {{/each}}
+        </main>
+    </div>
+</div>
+<!-- Module to show shared Users -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4 id="modalTitle"></h4>
+        <table id="buddyTable">
+            <!-- Dynamically append users to table -->
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Got It!</a>
+    </div>
+</div>
+
+
+<!-- Modal click Listener -->
+
+<script type="text/javascript" src="/assets/javascript/bucketlist-find-buddy.js"></script>
+<!-- Remove Location from Destinations -->
+<script type="text/javascript" src="/assets/javascript/bucketlist-remove-location.js"></script>
+
+{{!-- Mobile Sidebar jQuery --}}
+<script type="text/javascript">
+    $( document ).ready(function(){
+        $(".button-collapse").sideNav();
+    });
+</script>
