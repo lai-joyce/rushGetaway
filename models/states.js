@@ -3,13 +3,9 @@ module.exports = function(sequelize, DataTypes) {
   var States = sequelize.define('States', {
     stateName: DataTypes.STRING,
     stateImageURL: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // States are related to Users through StateLikes
-        States.belongsToMany(models.Users, {through: 'StateLikes'});
-      }
-    }
   });
+  States.associate = function(models) {
+    States.belongsToMany(models.Users, {through: 'StateLikes'});
+  };
   return States;
 };
